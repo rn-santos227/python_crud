@@ -26,7 +26,6 @@ class Product:
 
 def addProduct():
     global products
-    print( e1.get(), e2.get(), e3.get())
     product = Product(e1.get(), e2.get(), e3.get())
     products.append(product)
     viewProducts()
@@ -63,11 +62,11 @@ def viewProducts():
         Label(separator, text=product.getPrice(), background=color, width=10).grid(row=row, column=1, sticky=W+E+N+S , padx=10, pady=5)
         Label(separator, text=product.getQuantity(),background=color, width=10).grid(row=row, column=2, sticky=W+E+N+S , padx=10, pady=5)
 
-        btn_a1 = Button(separator, text="Update", width=7, command=lambda: updateProduct(product))
-        btn_a2 = Button(separator, text="Delete", width=7, command=lambda: deleteProduct(product))
+        btn_a1 = Button(separator, text="Update", width=7, command=lambda prod=product: updateProduct(prod))
+        btn_a2 = Button(separator, text="Delete", width=7, command=lambda prod=product: deleteProduct(prod))
 
-        btn_a1.grid(row=row, column=3, sticky=W, padx=2, pady=5)
-        btn_a2.grid(row=row, column=4, sticky=E, padx=2, pady=5)
+        btn_a1.grid(row=row, column=3, sticky=W, padx=5, pady=5)
+        btn_a2.grid(row=row, column=4, sticky=E, padx=5, pady=5)
         row += 1
 
     e1.delete(0, 'end')
@@ -75,18 +74,18 @@ def viewProducts():
     e3.delete(0, 'end')
 
 def addHeaders():    
-    separator.grid(row=5, column=0, columnspan=3, padx=10, pady=5, sticky=W+E+N+S)
-    Label(separator, text="Name", background=color, width=10).grid(row=0, column=0, sticky=W+E+N+S , padx=10, pady=5)
-    Label(separator, text="Price", background=color, width=10).grid(row=0, column=1, sticky=W+E+N+S , padx=10, pady=5)
-    Label(separator, text="Quantity",background=color, width=10).grid(row=0, column=2, sticky=W+E+N+S , padx=10, pady=5)
-    Label(separator, text="Action", background=color, width=10).grid(row=0, column=3, sticky=W+E+N+S , padx=10, pady=5, columnspan=2)
+    separator.grid(row=5, column=0, columnspan=5, pady=5, sticky=W+E+N+S)
+    Label(separator, text="Name", background=color, width=10).grid(row=0, column=0, sticky=W, padx=10, pady=5)
+    Label(separator, text="Price", background=color, width=10).grid(row=0, column=1, sticky=W, padx=10, pady=5)
+    Label(separator, text="Quantity",background=color, width=10).grid(row=0, column=2, sticky=W, padx=10, pady=5)
+    Label(separator, text="Action", background=color, width=10).grid(row=0, column=3, sticky=W, padx=10, pady=5, columnspan=2)
 
 products = []
 color = "#d9d7d7"
 
 root = Tk()
 root.title("Simple Inventory System")
-root.geometry("450x400") 
+root.geometry("435x400") 
 root.resizable(0, 0) 
 
 Label(root, text="Products Information").grid(row=0, column=0, sticky=W, padx=10, pady=5)
@@ -108,8 +107,7 @@ btn2 = Button(root, text="Add Product", width=15, state=NORMAL, command=addProdu
 btn1.grid(row=4, column=1, sticky=W, padx=10, pady=5)
 btn2.grid(row=4, column=2, sticky=E, padx=10, pady=5)
 
-separator = Frame(root, height=100, width=420, background=color, relief=SUNKEN)
-
+separator = Canvas(root, height=100, width=420, background=color, relief=SUNKEN)
 addHeaders()
 root.mainloop()
 
